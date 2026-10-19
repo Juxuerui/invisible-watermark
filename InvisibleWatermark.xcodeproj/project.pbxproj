@@ -53,7 +53,7 @@
 		B1000000000000000000018 /* ZipUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/ZipUtil.swift; sourceTree = "<group>"; };
 		B1000000000000000000019 /* EmailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/EmailUtil.swift; sourceTree = "<group>"; };
 		B1000000000000000000020 /* SMTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/SMTPClient.swift; sourceTree = "<group>"; };
-		B1000000000000000000021 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		B1000000000000000000021 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1000000000000000000022 /* InvisibleWatermark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvisibleWatermark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000000000000000000023 /* Compat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Compat.swift; sourceTree = "<group>"; };
 		B1000000000000000000024 /* ActivationToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/ActivationToolView.swift; sourceTree = "<group>"; };
