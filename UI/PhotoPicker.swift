@@ -22,9 +22,10 @@ struct PhotoPickerView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
         config.filter = .images                    // jpeg/png/heic/gif/tiff/bmp/webp...
-        // PHPicker treats 0 as "no limit"; .single only applies to exactly one.
+        // PHPicker treats 0 as "no limit". Selection granularity is controlled by
+        // selectionLimit; `Selection` only offers .default and .ordered.
         config.selectionLimit = max(0, limit)
-        config.selection = limit == 1 ? .single : .ordered
+        config.selection = limit == 1 ? .default : .ordered
         config.preferredAssetRepresentationMode = .current
         let controller = PHPickerViewController(configuration: config)
         controller.delegate = context.coordinator
