@@ -1,0 +1,71 @@
+name: Build IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+
+      - name: Run algorithm self tests
+        run: bash run_tests.sh
+
+      - name: Build full app
+        run: |
+          xcodebuild \
+            -project InvisibleWatermark.xcodeproj \
+            -scheme InvisibleWatermark \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/full-DD \
+            PRODUCT_BUNDLE_IDENTIFIER=com.watermark.app \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Build activation tool
+        run: |
+          xcodebuild \
+            -project InvisibleWatermark.xcodeproj \
+            -scheme InvisibleWatermark \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath build/tool-DD \
+            PRODUCT_BUNDLE_IDENTIFIER=com.watermark.activationtool \
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS=ACTIVATION_TOOL \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+      - name: Package IPAs
+        run: |
+          set -e
+          for pair in "InvisibleWatermark:full-DD" "ActivationTool:tool-DD"; do
+            name="${pair%%:*}"
+            dd="${pair##*:}"
+            app="build/$dd/Build/Products/Release-iphoneos/InvisibleWatermark.app"
+            mkdir -p "build/$name-Payload"
+            cp -R "$app" "build/$name-Payload/InvisibleWatermark.app"
+            (cd build && zip -qry "$name-unsigned.ipa" "$name-Payload")
+          done
+          ls -lh build/*.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-ipas
+          path: build/*-unsigned.ipa
+          retention-days: 30

@@ -1,0 +1,372 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000000000000000000001 /* InvisibleWatermarkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000001 /* InvisibleWatermarkApp.swift */; };
+		A1000000000000000000002 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000002 /* AppModel.swift */; };
+		A1000000000000000000003 /* ActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000003 /* ActivationView.swift */; };
+		A1000000000000000000004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000004 /* HomeView.swift */; };
+		A1000000000000000000005 /* EmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000005 /* EmbedView.swift */; };
+		A1000000000000000000006 /* DetectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000006 /* DetectView.swift */; };
+		A1000000000000000000007 /* EmailConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000007 /* EmailConfigView.swift */; };
+		A1000000000000000000008 /* FilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000008 /* FilePicker.swift */; };
+		A1000000000000000000009 /* PhotoSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000009 /* PhotoSaver.swift */; };
+		A1000000000000000000010 /* DCT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000010 /* DCT.swift */; };
+		A1000000000000000000011 /* DCTWatermark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000011 /* DCTWatermark.swift */; };
+		A1000000000000000000012 /* RobustWatermark.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000012 /* RobustWatermark.swift */; };
+		A1000000000000000000013 /* RGBAImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000013 /* RGBAImage.swift */; };
+		A1000000000000000000014 /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000014 /* Encoder.swift */; };
+		A1000000000000000000015 /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000015 /* License.swift */; };
+		A1000000000000000000016 /* MediaStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000016 /* MediaStore.swift */; };
+		A1000000000000000000017 /* PSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000017 /* PSD.swift */; };
+		A1000000000000000000018 /* ZipUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000018 /* ZipUtil.swift */; };
+		A1000000000000000000019 /* EmailUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000019 /* EmailUtil.swift */; };
+		A1000000000000000000020 /* SMTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000020 /* SMTPClient.swift */; };
+		A1000000000000000000021 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000021 /* Assets.xcassets */; };
+		A1000000000000000000023 /* Compat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000023 /* Compat.swift */; };
+		A1000000000000000000024 /* ActivationToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000024 /* ActivationToolView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B1000000000000000000001 /* InvisibleWatermarkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/InvisibleWatermarkApp.swift; sourceTree = "<group>"; };
+		B1000000000000000000002 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/AppModel.swift; sourceTree = "<group>"; };
+		B1000000000000000000003 /* ActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/ActivationView.swift; sourceTree = "<group>"; };
+		B1000000000000000000004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/HomeView.swift; sourceTree = "<group>"; };
+		B1000000000000000000005 /* EmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/EmbedView.swift; sourceTree = "<group>"; };
+		B1000000000000000000006 /* DetectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/DetectView.swift; sourceTree = "<group>"; };
+		B1000000000000000000007 /* EmailConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/EmailConfigView.swift; sourceTree = "<group>"; };
+		B1000000000000000000008 /* FilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/FilePicker.swift; sourceTree = "<group>"; };
+		B1000000000000000000009 /* PhotoSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/PhotoSaver.swift; sourceTree = "<group>"; };
+		B1000000000000000000010 /* DCT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/DCT.swift; sourceTree = "<group>"; };
+		B1000000000000000000011 /* DCTWatermark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/DCTWatermark.swift; sourceTree = "<group>"; };
+		B1000000000000000000012 /* RobustWatermark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/RobustWatermark.swift; sourceTree = "<group>"; };
+		B1000000000000000000013 /* RGBAImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/RGBAImage.swift; sourceTree = "<group>"; };
+		B1000000000000000000014 /* Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/Encoder.swift; sourceTree = "<group>"; };
+		B1000000000000000000015 /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/License.swift; sourceTree = "<group>"; };
+		B1000000000000000000016 /* MediaStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/MediaStore.swift; sourceTree = "<group>"; };
+		B1000000000000000000017 /* PSD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/PSD.swift; sourceTree = "<group>"; };
+		B1000000000000000000018 /* ZipUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/ZipUtil.swift; sourceTree = "<group>"; };
+		B1000000000000000000019 /* EmailUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/EmailUtil.swift; sourceTree = "<group>"; };
+		B1000000000000000000020 /* SMTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core/SMTPClient.swift; sourceTree = "<group>"; };
+		B1000000000000000000021 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		B1000000000000000000022 /* InvisibleWatermark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvisibleWatermark.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000000000000000000023 /* Compat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/Compat.swift; sourceTree = "<group>"; };
+		B1000000000000000000024 /* ActivationToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI/ActivationToolView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C1000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D1000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				D1000000000000000000002 /* Core */,
+				D1000000000000000000003 /* UI */,
+				D1000000000000000000004 /* Resources */,
+				D1000000000000000000005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1000000000000000000002 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000010 /* DCT.swift */,
+				B1000000000000000000011 /* DCTWatermark.swift */,
+				B1000000000000000000012 /* RobustWatermark.swift */,
+				B1000000000000000000013 /* RGBAImage.swift */,
+				B1000000000000000000014 /* Encoder.swift */,
+				B1000000000000000000015 /* License.swift */,
+				B1000000000000000000016 /* MediaStore.swift */,
+				B1000000000000000000017 /* PSD.swift */,
+				B1000000000000000000018 /* ZipUtil.swift */,
+				B1000000000000000000019 /* EmailUtil.swift */,
+				B1000000000000000000020 /* SMTPClient.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D1000000000000000000003 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000001 /* InvisibleWatermarkApp.swift */,
+				B1000000000000000000002 /* AppModel.swift */,
+				B1000000000000000000003 /* ActivationView.swift */,
+				B1000000000000000000004 /* HomeView.swift */,
+				B1000000000000000000005 /* EmbedView.swift */,
+				B1000000000000000000006 /* DetectView.swift */,
+				B1000000000000000000007 /* EmailConfigView.swift */,
+				B1000000000000000000008 /* FilePicker.swift */,
+				B1000000000000000000009 /* PhotoSaver.swift */,
+				B1000000000000000000023 /* Compat.swift */,
+				B1000000000000000000024 /* ActivationToolView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D1000000000000000000004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000021 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D1000000000000000000005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1000000000000000000022 /* InvisibleWatermark.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E1000000000000000000001 /* InvisibleWatermark */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1000000000000000000002 /* Build configuration list for PBXNativeTarget "InvisibleWatermark" */;
+			buildPhases = (
+				C1000000000000000000002 /* Sources */,
+				C1000000000000000000001 /* Frameworks */,
+				C1000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InvisibleWatermark;
+			productName = InvisibleWatermark;
+			productReference = B1000000000000000000022 /* InvisibleWatermark.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E1000000000000000000002 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E1000000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = F1000000000000000000001 /* Build configuration list for PBXProject "InvisibleWatermark" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = zh_CN;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				zh_CN,
+				en,
+				Base,
+			);
+			mainGroup = D1000000000000000000001;
+			productRefGroup = D1000000000000000000005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E1000000000000000000001 /* InvisibleWatermark */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C1000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000021 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C1000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000000000000000000001 /* InvisibleWatermarkApp.swift in Sources */,
+				A1000000000000000000002 /* AppModel.swift in Sources */,
+				A1000000000000000000003 /* ActivationView.swift in Sources */,
+				A1000000000000000000004 /* HomeView.swift in Sources */,
+				A1000000000000000000005 /* EmbedView.swift in Sources */,
+				A1000000000000000000006 /* DetectView.swift in Sources */,
+				A1000000000000000000007 /* EmailConfigView.swift in Sources */,
+				A1000000000000000000008 /* FilePicker.swift in Sources */,
+				A1000000000000000000009 /* PhotoSaver.swift in Sources */,
+				A1000000000000000000010 /* DCT.swift in Sources */,
+				A1000000000000000000011 /* DCTWatermark.swift in Sources */,
+				A1000000000000000000012 /* RobustWatermark.swift in Sources */,
+				A1000000000000000000013 /* RGBAImage.swift in Sources */,
+				A1000000000000000000014 /* Encoder.swift in Sources */,
+				A1000000000000000000015 /* License.swift in Sources */,
+				A1000000000000000000016 /* MediaStore.swift in Sources */,
+				A1000000000000000000017 /* PSD.swift in Sources */,
+				A1000000000000000000018 /* ZipUtil.swift in Sources */,
+				A1000000000000000000019 /* EmailUtil.swift in Sources */,
+				A1000000000000000000020 /* SMTPClient.swift in Sources */,
+				A1000000000000000000023 /* Compat.swift in Sources */,
+				A1000000000000000000024 /* ActivationToolView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F1000000000000000000011 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F1000000000000000000012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F1000000000000000000021 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "隐形水印";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要写入相册以保存已打标图片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要读取相册以选择待打标图片";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.watermark.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1000000000000000000022 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "隐形水印";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要写入相册以保存已打标图片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要读取相册以选择待打标图片";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.watermark.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1000000000000000000001 /* Build configuration list for PBXProject "InvisibleWatermark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1000000000000000000011 /* Debug */,
+				F1000000000000000000012 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1000000000000000000002 /* Build configuration list for PBXNativeTarget "InvisibleWatermark" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1000000000000000000021 /* Debug */,
+				F1000000000000000000022 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E1000000000000000000002 /* Project object */;
+}
