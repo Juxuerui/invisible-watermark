@@ -1,6 +1,5 @@
 import SwiftUI
 import UniformTypeIdentifiers
-import WatermarkCore
 #if canImport(UIKit)
 import UIKit
 

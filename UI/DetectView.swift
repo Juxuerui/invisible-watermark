@@ -1,5 +1,4 @@
 import SwiftUI
-import WatermarkCore
 #if canImport(UIKit)
 import UIKit
 #endif

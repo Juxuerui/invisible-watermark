@@ -1,5 +1,4 @@
 import SwiftUI
-import WatermarkCore
 
 /// Mirrors MainActivity: three entries plus licence state.
 struct HomeView: View {

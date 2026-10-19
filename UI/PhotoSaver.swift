@@ -2,7 +2,6 @@ import Foundation
 #if canImport(Photos)
 import Photos
 #endif
-import WatermarkCore
 
 /// Photo library access. Saving to a custom album requires the iOS app target.
 public enum PhotoSaver {

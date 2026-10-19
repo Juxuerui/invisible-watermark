@@ -1,5 +1,4 @@
 import SwiftUI
-import WatermarkCore
 
 @main
 struct InvisibleWatermarkApp: App {
