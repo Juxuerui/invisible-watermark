@@ -24,7 +24,9 @@ public struct FilePickerView: UIViewControllerRepresentable {
         let types: [UTType]
         switch mode {
         case .images:
-            types = [.image, .jpeg, .png, .tiff, .bmp, .heic, .raw]
+            // `.image` covers png/jpeg/tiff/heic; PSD is not a system image type,
+            // so it is admitted through `.data` and filtered by extension.
+            types = [.image, .data]
         case .zip:
             types = [.zip, .archive]
         }
