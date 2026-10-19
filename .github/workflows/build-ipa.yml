@@ -54,13 +54,20 @@ jobs:
       - name: Package IPAs
         run: |
           set -e
+          # iOS requires the archive root to be exactly "Payload/".
+          # Two variants need two staging roots, so build each in its own dir.
           for pair in "InvisibleWatermark:full-DD" "ActivationTool:tool-DD"; do
             name="${pair%%:*}"
             dd="${pair##*:}"
             app="build/$dd/Build/Products/Release-iphoneos/InvisibleWatermark.app"
-            mkdir -p "build/$name-Payload"
-            cp -R "$app" "build/$name-Payload/InvisibleWatermark.app"
-            (cd build && zip -qry "$name-unsigned.ipa" "$name-Payload")
+            stage="build/stage-$name"
+            rm -rf "$stage"
+            mkdir -p "$stage/Payload"
+            cp -R "$app" "$stage/Payload/InvisibleWatermark.app"
+            (cd "$stage" && zip -qry "../$name-unsigned.ipa" Payload)
+            # Sanity check: the archive must contain Payload/ at the root.
+            unzip -l "build/$name-unsigned.ipa" | grep -q "Payload/InvisibleWatermark.app/" \
+              || { echo "bad archive: $name"; exit 1; }
           done
           ls -lh build/*.ipa
 

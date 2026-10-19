@@ -53,10 +53,10 @@ build_variant() {
     exit 1
   fi
 
-  rm -rf "$OUT/$name-Payload" "$OUT/$name.ipa"
-  mkdir -p "$OUT/$name-Payload"
-  cp -R "$app" "$OUT/$name-Payload/InvisibleWatermark.app"
-  (cd "$OUT" && zip -qry "$name.ipa" "$name-Payload")
+  rm -rf "$OUT/stage-$name" "$OUT/$name.ipa"
+  mkdir -p "$OUT/stage-$name/Payload"
+  cp -R "$app" "$OUT/stage-$name/Payload/InvisibleWatermark.app"
+  (cd "$OUT/stage-$name" && zip -qry "../$name.ipa" Payload)
   echo "→ $OUT/$name.ipa"
 }
 
