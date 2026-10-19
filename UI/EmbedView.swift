@@ -8,19 +8,30 @@ import UIKit
 struct EmbedView: View {
     @EnvironmentObject private var model: AppModel
     @State private var showPicker = false
+    @State private var showPhotoPicker = false
+    @State private var showFilePicker = false
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 section("图片") {
                     Button {
-                        showPicker = true
+                        showPhotoPicker = true
                     } label: {
                         Label("选择图片", systemImage: "photo.badge.plus")
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
                     }
                     .buttonStyle(.borderedProminent)
+
+                    Button {
+                        showFilePicker = true
+                    } label: {
+                        Label("从文件选择（PSD 等）", systemImage: "folder")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(.bordered)
 
                     Text("已选 \(model.embedImages.count) 张图片")
                         .font(.footnote)
@@ -181,9 +192,17 @@ struct EmbedView: View {
         .background(Color(red: 0.96, green: 0.96, blue: 0.98))
         .navigationTitle("批量打标")
         .inlineNavigationTitle()
-        .sheet(isPresented: $showPicker) {
+        .sheet(isPresented: $showPhotoPicker) {
+            PhotoPickerView(limit: 0) { assets in
+                showPhotoPicker = false
+                model.embedImages.append(contentsOf: assets.map {
+                    PickedImage(url: $0.url, name: $0.name, thumbnail: nil)
+                })
+            }
+        }
+        .sheet(isPresented: $showFilePicker) {
             FilePickerView(mode: .images(multiple: true)) { urls in
-                showPicker = false
+                showFilePicker = false
                 model.embedImages.append(contentsOf: urls.map {
                     PickedImage(url: $0, name: $0.lastPathComponent, thumbnail: nil)
                 })

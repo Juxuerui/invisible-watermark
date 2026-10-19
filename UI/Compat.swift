@@ -43,3 +43,24 @@ extension View {
         #endif
     }
 }
+
+extension View {
+    /// Uppercase input hint (iOS only; macOS type-checking has no equivalent).
+    @ViewBuilder
+    func uppercaseInput() -> some View {
+        #if os(iOS)
+        self.textInputAutocapitalization(.characters)
+        #else
+        self
+        #endif
+    }
+
+    @ViewBuilder
+    func numberKeyboard() -> some View {
+        #if os(iOS)
+        self.keyboardType(.numberPad)
+        #else
+        self
+        #endif
+    }
+}

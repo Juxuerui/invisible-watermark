@@ -45,6 +45,7 @@ jobs:
             -destination 'generic/platform=iOS' \
             -derivedDataPath build/tool-DD \
             PRODUCT_BUNDLE_IDENTIFIER=com.watermark.activationtool \
+            APP_DISPLAY_NAME="隐形水印授权工具" \
             SWIFT_ACTIVE_COMPILATION_CONDITIONS=ACTIVATION_TOOL \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \

@@ -30,6 +30,7 @@ build_variant() {
   local scheme="$2"
   local bundle_id="$3"
   local extra_swift="$4"
+  local display_name="$5"
 
   echo ""
   echo "=== 构建 $name ($bundle_id) ==="
@@ -41,6 +42,7 @@ build_variant() {
     -destination 'generic/platform=iOS' \
     -derivedDataPath "$OUT/$name-DD" \
     PRODUCT_BUNDLE_IDENTIFIER="$bundle_id" \
+    APP_DISPLAY_NAME="$display_name" \
     SWIFT_ACTIVE_COMPILATION_CONDITIONS="$extra_swift" \
     CODE_SIGNING_ALLOWED=NO \
     CODE_SIGNING_REQUIRED=NO \
@@ -61,10 +63,10 @@ build_variant() {
 }
 
 # 1. 完整应用
-build_variant "InvisibleWatermark" "InvisibleWatermark" "com.watermark.app" ""
+build_variant "InvisibleWatermark" "InvisibleWatermark" "com.watermark.app" "" "隐形水印"
 
 # 2. 授权工具：仅保留激活界面与授权库，供发码方使用
-build_variant "ActivationTool" "InvisibleWatermark" "com.watermark.activationtool" "ACTIVATION_TOOL"
+build_variant "ActivationTool" "InvisibleWatermark" "com.watermark.activationtool" "ACTIVATION_TOOL" "隐形水印授权工具"
 
 echo ""
 echo "完成："

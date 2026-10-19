@@ -8,14 +8,16 @@ struct DetectView: View {
     @EnvironmentObject private var model: AppModel
     @State private var pickerMode: FilePickerView.Mode?
     @State private var showPicker = false
+    @State private var showPhotoPicker = false
+    @State private var photoLimit = 1
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 section("选择来源") {
                     Button {
-                        pickerMode = .images(multiple: false)
-                        showPicker = true
+                        photoLimit = 1
+                        showPhotoPicker = true
                     } label: {
                         Label("单图查标", systemImage: "photo")
                             .frame(maxWidth: .infinity)
@@ -24,8 +26,8 @@ struct DetectView: View {
                     .buttonStyle(.borderedProminent)
 
                     Button {
-                        pickerMode = .images(multiple: true)
-                        showPicker = true
+                        photoLimit = 0
+                        showPhotoPicker = true
                     } label: {
                         Label("批量查标", systemImage: "photo.stack")
                             .frame(maxWidth: .infinity)
@@ -38,6 +40,16 @@ struct DetectView: View {
                         showPicker = true
                     } label: {
                         Label("压缩包查标", systemImage: "doc.zipper")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 12)
+                    }
+                    .buttonStyle(.bordered)
+
+                    Button {
+                        pickerMode = .images(multiple: true)
+                        showPicker = true
+                    } label: {
+                        Label("从文件选择（PSD 等）", systemImage: "folder")
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
                     }
@@ -94,6 +106,14 @@ struct DetectView: View {
         .inlineNavigationTitle()
         .sheet(isPresented: $showPicker) {
             pickerSheet
+        }
+        .sheet(isPresented: $showPhotoPicker) {
+            PhotoPickerView(limit: photoLimit) { assets in
+                showPhotoPicker = false
+                let urls = assets.map(\.url)
+                let names = assets.map(\.name)
+                model.detectImages(urls, names: names)
+            }
         }
     }
 

@@ -30,6 +30,8 @@
 		A1000000000000000000021 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000021 /* Assets.xcassets */; };
 		A1000000000000000000023 /* Compat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000023 /* Compat.swift */; };
 		A1000000000000000000024 /* ActivationToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000024 /* ActivationToolView.swift */; };
+		A1000000000000000000025 /* LicenseIssuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000025 /* LicenseIssuer.swift */; };
+		A1000000000000000000026 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000000000000000000026 /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		B1000000000000000000022 /* InvisibleWatermark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InvisibleWatermark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1000000000000000000023 /* Compat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compat.swift; sourceTree = "<group>"; };
 		B1000000000000000000024 /* ActivationToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivationToolView.swift; sourceTree = "<group>"; };
+		B1000000000000000000025 /* LicenseIssuer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseIssuer.swift; sourceTree = "<group>"; };
+		B1000000000000000000026 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 				B1000000000000000000018 /* ZipUtil.swift */,
 				B1000000000000000000019 /* EmailUtil.swift */,
 				B1000000000000000000020 /* SMTPClient.swift */,
+				B1000000000000000000025 /* LicenseIssuer.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 				B1000000000000000000009 /* PhotoSaver.swift */,
 				B1000000000000000000023 /* Compat.swift */,
 				B1000000000000000000024 /* ActivationToolView.swift */,
+				B1000000000000000000026 /* PhotoPicker.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -224,6 +230,8 @@
 				A1000000000000000000020 /* SMTPClient.swift in Sources */,
 				A1000000000000000000023 /* Compat.swift in Sources */,
 				A1000000000000000000024 /* ActivationToolView.swift in Sources */,
+				A1000000000000000000025 /* LicenseIssuer.swift in Sources */,
+				A1000000000000000000026 /* PhotoPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +294,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "隐形水印";
+				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				APP_DISPLAY_NAME = "隐形水印";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要写入相册以保存已打标图片";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要读取相册以选择待打标图片";
@@ -321,7 +330,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "隐形水印";
+				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
+				APP_DISPLAY_NAME = "隐形水印";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要写入相册以保存已打标图片";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要读取相册以选择待打标图片";

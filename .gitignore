@@ -5,3 +5,7 @@ DerivedData/
 .DS_Store
 xcuserdata/
 *.xcuserstate
+
+# 授权私钥绝不入库（公开仓库会泄露签发能力）
+Keys/*.pem
+Keys/license_private*

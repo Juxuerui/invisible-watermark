@@ -3,8 +3,12 @@ import UniformTypeIdentifiers
 #if canImport(UIKit)
 import UIKit
 
-/// Bridges SwiftUI to the document picker. A document picker (instead of the
-/// photo picker) is used so that PSD files and zip archives can be selected too.
+/// Document picker for images, PSD and zip.
+///
+/// Filters by explicit file extensions instead of broad UTTypes: a plain `.data`
+/// filter greys out PNGs coming from some providers (Files, iCloud Drive, third
+/// party apps) because those files do not declare a conforming type. Extension
+/// based UTType declarations match the filename, which is what users expect.
 public struct FilePickerView: UIViewControllerRepresentable {
 
     public enum Mode {
@@ -20,15 +24,22 @@ public struct FilePickerView: UIViewControllerRepresentable {
         self.onPick = onPick
     }
 
+    /// Every common raster format plus PSD, declared by extension so the picker
+    /// never greys out a file it can actually decode.
+    static let imageExtensions = ["png", "jpg", "jpeg", "heic", "heif",
+                                  "tif", "tiff", "bmp", "gif", "webp", "psd"]
+
+    static func imageTypes() -> [UTType] {
+        imageExtensions.compactMap { UTType(filenameExtension: $0) }
+    }
+
     public func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
         let types: [UTType]
         switch mode {
         case .images:
-            // `.image` covers png/jpeg/tiff/heic; PSD is not a system image type,
-            // so it is admitted through `.data` and filtered by extension.
-            types = [.image, .data]
+            types = Self.imageTypes()
         case .zip:
-            types = [.zip, .archive]
+            types = [.zip]
         }
         let controller = UIDocumentPickerViewController(forOpeningContentTypes: types,
                                                         asCopy: true)
@@ -36,6 +47,7 @@ public struct FilePickerView: UIViewControllerRepresentable {
             if case .images(let multiple) = mode { return multiple }
             return false
         }()
+        controller.shouldShowFileExtensions = true
         controller.delegate = context.coordinator
         return controller
     }
@@ -62,7 +74,7 @@ public struct FilePickerView: UIViewControllerRepresentable {
 
 #else
 
-/// Non-iOS placeholder so the shared UI sources still type-check on macOS.
+/// Non-iOS placeholder so shared sources still type-check on macOS.
 public struct FilePickerView: View {
     public enum Mode {
         case images(multiple: Bool)

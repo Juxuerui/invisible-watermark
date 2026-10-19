@@ -3,7 +3,9 @@ import Foundation
 /// Photos app helper, image file naming and zip handling ported from ImageUtil.
 public enum MediaStore {
 
-    public static let imageExtensions = ["jpg", "jpeg", "png", "bmp", "webp", "psd"]
+    /// Formats the app can actually decode. Keep in sync with FilePickerView.
+    public static let imageExtensions = ["jpg", "jpeg", "png", "bmp", "webp", "psd",
+                                        "heic", "heif", "tif", "tiff", "gif"]
 
     public static func isImageFile(_ name: String) -> Bool {
         let lower = name.lowercased()

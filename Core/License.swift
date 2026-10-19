@@ -25,7 +25,7 @@ public enum License {
     }
 
     /// Tencent app's embedded P-256 public key (X9.62 uncompressed point).
-    static let publicKeyBase64 = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEQiMooch7T9LOJAQwm1xB1MRwBTC+B3rTtacXCu0GVnHErkJHAlNTH+P4dSXh93U/6lbwk29XSti+pX1DzujOIA=="
+    static let publicKeyBase64 = "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExc7+FWWQloatiSVG9IcabSdWpdEjxr/ys4dbkfCHCVKjpUDR8+fFoqOUUmpgaHSXuShpCMyuPetMHAdoi2ZwIQ=="
 
     // MARK: - Device identity
 

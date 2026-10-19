@@ -1,25 +1,54 @@
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#endif
+import CryptoKit
 
 /// Variant shipped in the `ActivationTool` build (compile flag ACTIVATION_TOOL).
 ///
-/// Intended for the licence issuer: it shows the host device code, lets the
-/// operator paste a licence back to verify it locally, and documents the payload
-/// layout needed by the signing side. It cannot create signatures because the
-/// private key is not part of the app.
+/// Licensing workstation: read or paste a device code, choose an expiry policy,
+/// unlock with the private key (kept in memory only) and sign a licence.
+/// Only the public key is compiled into the binary.
 struct ActivationToolView: View {
     @EnvironmentObject private var model: AppModel
+
+    @State private var deviceCode = ""
+    @State private var expiryMode = ExpiryMode.days365
+    @State private var customDays = "30"
+    @State private var privateKeyPEM = ""
+    @State private var unlockedKey: P256.Signing.PrivateKey?
+    @State private var issuedCode = ""
+    @State private var issuedExpire: UInt32 = 0
+    @State private var message = ""
+    @State private var messageIsError = false
     @State private var pastedLicense = ""
     @State private var verifyResult: String?
     @State private var verifyOK = false
+    @State private var showKeyImporter = false
+
+    enum ExpiryMode: String, CaseIterable, Identifiable {
+        case days30 = "30 天"
+        case days90 = "90 天"
+        case days365 = "1 年"
+        case permanent = "永久"
+        case custom = "自定义"
+
+        var id: String { rawValue }
+
+        func seconds(customDays: Int?) -> UInt32 {
+            switch self {
+            case .days30: return LicenseIssuer.expireSeconds(days: 30)
+            case .days90: return LicenseIssuer.expireSeconds(days: 90)
+            case .days365: return LicenseIssuer.expireSeconds(days: 365)
+            case .permanent: return LicenseIssuer.permanent
+            case .custom: return LicenseIssuer.expireSeconds(days: customDays ?? 30)
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    deviceSection
+                VStack(alignment: .leading, spacing: 14) {
+                    keySection
+                    issueSection
                     verifySection
                     formatSection
                 }
@@ -28,67 +57,186 @@ struct ActivationToolView: View {
             .background(Color(red: 0.96, green: 0.96, blue: 0.98))
             .navigationTitle("隐形水印 · 授权工具")
             .inlineNavigationTitle()
+            .onAppear {
+                if deviceCode.isEmpty { deviceCode = License.deviceCode() }
+            }
+            .fileImporter(isPresented: $showKeyImporter,
+                          allowedContentTypes: [.data, .text],
+                          allowsMultipleSelection: false) { result in
+                handleKeyImport(result)
+            }
         }
     }
 
-    private var deviceSection: some View {
-        card("本机设备码") {
-            Text(License.deviceCode())
-                .font(.system(.title3, design: .monospaced).bold())
-                .foregroundStyle(Color(red: 0.12, green: 0.37, blue: 0.66))
-                .textSelection(.enabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(12)
+    private var keySection: some View {
+        card("签名密钥") {
+            if unlockedKey != nil {
+                Label("已解锁，可签发授权码", systemImage: "key.fill")
+                    .font(.footnote)
+                    .foregroundStyle(.green)
+                Text("公钥指纹 \(LicenseIssuer.publicKeyFingerprint().prefix(16))…")
+                    .font(.caption2.monospaced())
+                    .foregroundStyle(.secondary)
+                    .textSelection(.enabled)
+                Button("锁定并清除私钥", role: .destructive) {
+                    unlockedKey = nil
+                    privateKeyPEM = ""
+                    issuedCode = ""
+                }
+                .font(.footnote)
+            } else {
+                Text("粘贴 PKCS#8 私钥（BEGIN PRIVATE KEY）。私钥只存在内存中，不写磁盘，也不打包进应用。")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                TextEditor(text: $privateKeyPEM)
+                    .font(.system(.caption2, design: .monospaced))
+                    .frame(height: 90)
+                    .padding(8)
+                    .background(Color.secondary.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                HStack(spacing: 10) {
+                    Button {
+                        unlock()
+                    } label: {
+                        Label("解锁", systemImage: "lock.open")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(privateKeyPEM.trimmingCharacters(in: .whitespaces).isEmpty)
+
+                    Button {
+                        showKeyImporter = true
+                    } label: {
+                        Label("导入文件", systemImage: "doc.badge.plus")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+        }
+    }
+
+    private var issueSection: some View {
+        card("签发授权码") {
+            Text("设备码").font(.caption.bold()).foregroundStyle(.secondary)
+            TextField("4CNAL-MCNWJ-SYE", text: $deviceCode)
+                .font(.system(.callout, design: .monospaced))
+                .uppercaseInput()
+                .autocorrectionDisabled()
+                .padding(10)
                 .background(Color.secondary.opacity(0.08))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
+            HStack(spacing: 8) {
+                Button {
+                    deviceCode = License.deviceCode()
+                    copy(deviceCode)
+                    model.toast = "已填入本机设备码"
+                } label: {
+                    Text("用本机设备码").font(.footnote)
+                }
+                .buttonStyle(.bordered)
+
+                Button {
+                    copy(deviceCode)
+                    model.toast = "设备码已复制"
+                } label: {
+                    Text("复制").font(.footnote)
+                }
+                .buttonStyle(.bordered)
+            }
+
+            Text("有效期").font(.caption.bold()).foregroundStyle(.secondary)
+                .padding(.top, 4)
+
+            Picker("有效期", selection: $expiryMode) {
+                ForEach(ExpiryMode.allCases) { mode in
+                    Text(mode.rawValue).tag(mode)
+                }
+            }
+            .pickerStyle(.segmented)
+
+            if expiryMode == .custom {
+                TextField("天数", text: $customDays)
+                    .numberKeyboard()
+                    .padding(10)
+                    .background(Color.secondary.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
             Button {
-                copy(License.deviceCode())
-                model.toast = "设备码已复制"
+                issue()
             } label: {
-                Label("复制设备码", systemImage: "doc.on.doc")
+                Label("生成授权码", systemImage: "signature")
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .padding(.vertical, 11)
             }
             .buttonStyle(.borderedProminent)
+            .disabled(unlockedKey == nil)
 
-            Text("把这段设备码填入授权码生成器，用同一把私钥签名后，产出的授权码即可在完整版应用中激活。")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            if !issuedCode.isEmpty {
+                Text("授权码（到期 \(License.expireText(issuedExpire))）")
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
+                Text(issuedCode)
+                    .font(.system(.caption2, design: .monospaced))
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(10)
+                    .background(Color.secondary.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+
+                HStack(spacing: 10) {
+                    Button {
+                        copy(issuedCode)
+                        model.toast = "授权码已复制"
+                    } label: {
+                        Label("复制授权码", systemImage: "doc.on.doc")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(.borderedProminent)
+
+                    ShareLink(item: issuedCode) {
+                        Label("分享", systemImage: "square.and.arrow.up")
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+
+            if !message.isEmpty {
+                Text(message)
+                    .font(.footnote)
+                    .foregroundStyle(messageIsError ? .red : .green)
+            }
         }
     }
 
     private var verifySection: some View {
         card("校验授权码") {
             TextEditor(text: $pastedLicense)
-                .font(.system(.footnote, design: .monospaced))
-                .frame(height: 100)
+                .font(.system(.caption2, design: .monospaced))
+                .frame(height: 80)
                 .padding(8)
                 .background(Color.secondary.opacity(0.08))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .overlay(alignment: .topLeading) {
-                    if pastedLicense.isEmpty {
-                        Text("粘贴授权码（xxxx.yyyy）")
-                            .font(.footnote)
-                            .foregroundStyle(.tertiary)
-                            .padding(.horizontal, 13)
-                            .padding(.vertical, 16)
-                            .allowsHitTesting(false)
-                    }
-                }
 
             Button {
                 let result = License.verify(pastedLicense)
                 verifyOK = result.ok
-                if result.ok {
-                    verifyResult = "校验通过，到期：\(License.expireText(result.expireSec))"
-                } else {
-                    verifyResult = result.reason
-                }
+                verifyResult = result.ok
+                    ? "校验通过 · 到期 \(License.expireText(result.expireSec))"
+                    : result.reason
             } label: {
                 Label("校验", systemImage: "checkmark.shield")
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .padding(.vertical, 9)
             }
             .buttonStyle(.bordered)
 
@@ -101,32 +249,91 @@ struct ActivationToolView: View {
     }
 
     private var formatSection: some View {
-        card("授权码格式") {
+        card("格式说明") {
             Text("""
-            结构：<base32(载荷)>.<base32(签名)>
+            授权码：<base32(载荷)>.<base32(签名)>
 
-            载荷 13 字节：
+            载荷 13 字节
               [0]     版本，固定 01
-              [1..4]  到期时间，Unix 秒，大端
+              [1..4]  到期 Unix 秒，大端
               [5..12] 设备指纹 8 字节
-                       = SHA-256(设备标识) 前 8 字节
 
-            签名：ECDSA P-256 / SHA-256，覆盖全部 13 字节载荷
-            到期值 FFFFFFFF 表示永久
+            签名 ECDSA P-256 / SHA-256
+            永久授权到期值 FFFFFFFF
             """)
-            .font(.system(.caption, design: .monospaced))
+            .font(.system(.caption2, design: .monospaced))
             .textSelection(.enabled)
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text("本工具只做校验，不包含私钥，因此无法生成签名。签名请在授权码生成器侧完成。")
+            Text("签发私钥必须与完整版应用内置的公钥配对。更换密钥后要重新构建完整版应用。")
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
     }
 
+    private func unlock() {
+        do {
+            unlockedKey = try LicenseIssuer.privateKey(fromPEM: privateKeyPEM)
+            message = "密钥已解锁"
+            messageIsError = false
+            privateKeyPEM = ""
+        } catch {
+            unlockedKey = nil
+            message = error.localizedDescription
+            messageIsError = true
+        }
+    }
+
+    private func issue() {
+        guard let key = unlockedKey else {
+            message = "请先解锁私钥"
+            messageIsError = true
+            return
+        }
+        do {
+            let expire = expiryMode.seconds(customDays: Int(customDays))
+            let issued = try LicenseIssuer.issue(deviceCode: deviceCode,
+                                                 expire: expire,
+                                                 privateKey: key)
+            let check = License.verify(issued.code)
+            issuedCode = issued.code
+            issuedExpire = issued.expire
+            if check.ok {
+                message = "生成成功，已自检通过"
+                messageIsError = false
+            } else {
+                message = "已生成，但自检未通过：\(check.reason)"
+                messageIsError = true
+            }
+        } catch {
+            issuedCode = ""
+            message = error.localizedDescription
+            messageIsError = true
+        }
+    }
+
+    private func handleKeyImport(_ result: Result<[URL], Swift.Error>) {
+        switch result {
+        case .success(let urls):
+            guard let url = urls.first else { return }
+            let scoped = url.startAccessingSecurityScopedResource()
+            defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+            if let text = try? String(contentsOf: url, encoding: .utf8) {
+                privateKeyPEM = text
+                unlock()
+            } else {
+                message = "无法读取该文件"
+                messageIsError = true
+            }
+        case .failure(let error):
+            message = error.localizedDescription
+            messageIsError = true
+        }
+    }
+
     private func card<Content: View>(_ title: String,
                                      @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 9) {
             Text(title).font(.subheadline.bold()).foregroundStyle(.secondary)
             content()
         }
