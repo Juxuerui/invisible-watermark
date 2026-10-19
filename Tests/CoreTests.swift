@@ -1,5 +1,4 @@
 import Foundation
-import WatermarkCore
 
 /// Headless verification harness. Run it on macOS with:
 ///   ./build_and_test.sh            (build + run all checks)
